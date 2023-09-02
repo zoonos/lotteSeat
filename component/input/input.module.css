@@ -1,0 +1,77 @@
+/* 기본 input */
+.inputWrap{
+    position: relative;
+    width: 100%;
+    margin-top: 40px;
+}
+.inputWrap input{
+    color: #222222;
+    width: 100%;
+    border: none;
+    border-bottom: solid #aaaaaa 1px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    position: relative;
+    background: none;
+    z-index: 5;
+}
+.inputWrap input::placeholder { color: #aaaaaa; }
+.inputWrap input:focus { outline: none; }
+.inputWrap span{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0%;  /* right로만 바꿔주면 오 - 왼 */
+    background-color: rgb(206, 174, 251);
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    transition: 0.5s;
+}
+.inputWrap label{
+    position: absolute;
+    color: #aaa;
+    left: 10px;
+    bottom: 8px;
+    transition: all .2s;
+}
+.inputWrap input:focus ~ label, .inputWrap input:valid ~ label {
+    bottom: 40px;
+    color: rgb(206, 174, 251);
+    font-weight: bold;
+}
+
+.inputWrap input:focus ~ span, .inputWrap input:valid ~ span { width: 100%; }
+  
+/* 검색 input */
+.search {
+    position: relative;
+    width: 300px;
+}
+.search input {
+    width: 100%;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+.search img {
+    position : absolute;
+    width: 17px;
+    top: 10px;
+    right: 12px;
+    margin: 0;
+}
+
+/* 일반 input */
+.inputWrap2{
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: 100%;
+}
+.inputWrap2 input{
+    border: none;
+    width: 100%;
+}
+.inputWrap2 input:focus { outline: none; }

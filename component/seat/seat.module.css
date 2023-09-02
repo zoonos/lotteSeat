@@ -1,0 +1,76 @@
+.seatWrap{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 10px;
+}
+.seat input[type="checkbox"]{
+    display: none;
+  }
+.seat input[type="checkbox"] + label{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border:3px solid #fff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #000;
+    font-size: 13px;
+    margin: 5px;
+    background-size: cover;
+}
+.seat input[type="checkbox"]:checked + label{ border:3px solid #000; }
+.seat label>div{
+    text-align: center;
+}
+.allSeat{table-layout: fixed}
+.allSeat tr,
+.allSeat td{ border: 0 }
+.allSeat td{
+    width: 61px;
+    height: 61px;
+    text-align: center;
+    vertical-align: middle;
+}
+.allSeat .section{
+    background-color: #ccc; 
+    color: #000;
+    font-weight: bold;
+}
+.allSeat .floor{
+    font-weight: bold;
+}
+.allSeat .num{
+    color: red;
+}
+.allSeat .wall{ border: 0px solid #000; }
+.allSeat .all{
+    border-top-width: 3px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+}
+.allSeat .top{ border-top-width: 3px; }
+.allSeat .left{ border-left-width: 3px; }
+.allSeat .right{ border-right-width: 3px; }
+.allSeat .bottom{ border-bottom-width: 3px; }
+.allSeat .slash,
+.allSeat .backslash{
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 61px;
+    height: 61px;
+}
+.allSeat .slash div,
+.allSeat .backslash div{
+    width: 3px;
+    height: 91px;
+    background-color: #000;
+}
+.allSeat .slash div{ transform: rotate(45deg); }
+.allSeat .backslash div{ transform: rotate(-45deg); }

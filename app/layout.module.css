@@ -1,0 +1,19 @@
+.wrap{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* contentTop */
+.contentTop{
+    border-bottom: 1px solid #aaaaaa;
+    width: calc(100vw - 170px);
+    padding: 20px;
+}
+
+/* content */
+.content{
+    /* background-color: blue; */
+    height: calc(100vh - 248px);
+    overflow: auto;
+}

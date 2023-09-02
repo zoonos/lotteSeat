@@ -1,0 +1,22 @@
+.btn{
+    cursor: pointer;
+    background-color: rgb(206, 174, 251);
+    border: none;
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    width: 100%;
+}
+.btn:hover{ filter: brightness(0.9); }
+.sns{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sns[type='naver']{ background-color: #03C75A;}
+.sns[type='kakao']{ background-color: #FEE500;}
+.sns:last-child{ margin-right: 0; }

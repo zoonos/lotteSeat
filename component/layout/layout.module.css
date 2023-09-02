@@ -1,0 +1,79 @@
+/* header */
+.header{
+    display: flex;
+    border-bottom: 1px solid #aaaaaa;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}
+.header img{
+    width: 150px;
+}
+.header div:last-child{
+    display: flex;
+    align-items: center;
+}
+.header+div{
+    display: flex;
+    height: calc(100vh - 147px);
+    /* background-color: red; */
+}
+.header .profile{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.header .user{
+    min-width: 100px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+/* sideNav */
+.nav{
+    border-right: 1px solid#aaaaaa;
+}
+.nav ul li{
+    min-width: 150px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+.nav ul li:hover{
+    background-color: rgb(206, 174, 251);
+    color: #ffffff;
+}
+.nav ul li.active{
+    background-color: rgb(206, 174, 251);
+    color: #ffffff;
+}
+.nav + div{
+    width: calc(100vw - 150px);
+}
+
+/* title */
+.title{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* yearMonth */
+.yearMonth{
+    /* font-size: 40px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.yearMonth .now{
+    font-size: 30px;
+    margin: 0 10px;
+    /* flex: 1; */
+}
+
+/* footer */
+.footer{
+    border-top: 1px solid #aaaaaa;
+    padding: 10px;
+    text-align: right;
+}
