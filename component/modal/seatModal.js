@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { modalState, nowYm, selectItem, nowSeatList } from "@/store/atoms";
 import { Input } from '../input/input';
 import { Button } from '../button/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { oninputPhone } from '@/util/input';
 
 export default function SeatModal(){
@@ -34,9 +34,32 @@ export default function SeatModal(){
             ...inputs,  
             [name]: value,
          }
-        //만든 변수를 seInput으로 변경해준다.
-        setInputs(nextInputs)       
+
+        if(e.target.name === 'number'){
+            const regex = /^[0-9\b -]{0,13}$/;
+            if (regex.test(e.target.value)) {
+                setInputs(nextInputs);
+            }
+        } else {
+            //만든 변수를 seInput으로 변경해준다.
+            setInputs(nextInputs)       
+        }
     }
+
+    useEffect(()=>{
+        if (number.length === 11) {
+            setInputs({
+                number: number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+            });
+          } else if (number.length === 13) {
+            setInputs({
+                number: number
+              //하이픈이 입력되면 공백으로 변경되고 하이픈이 다시 생성됨
+                .replace(/-/g, '')
+                .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+            });
+          }
+    },[number])
 
     return(
         <div className={style.modalWrap} style={state ? {display:'flex'} : {display:'none'}}>
@@ -82,6 +105,7 @@ export default function SeatModal(){
                             name='number' placeholder='예약자 번호를 입력하세요.'
                             value={number}
                             onChange={onChange}
+                            maxLength={13}
                         />
                     </div>
                     <div
