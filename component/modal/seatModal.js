@@ -6,7 +6,6 @@ import { modalState, nowYm, selectItem, nowSeatList } from "@/store/atoms";
 import { Input } from '../input/input';
 import { Button } from '../button/button';
 import { useEffect, useState } from 'react';
-import { oninputPhone } from '@/util/input';
 
 export default function SeatModal(){
 
@@ -62,6 +61,41 @@ export default function SeatModal(){
             });
           }
     },[number])
+
+    function isHpFormat(hp){
+        if(hp == ""){
+            return true;
+        }
+        var phoneRule = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
+        return phoneRule.test(hp);
+    }
+
+    const reserve = () => {
+        console.log(name)
+        if((name === '') || (number === '')){
+            alert('이름과 번호를 모두 입력해주세요.')
+        } else {
+            if(isHpFormat(number)){
+                fetch('/api/seat', {method: 'POST', body: JSON.stringify({id:item, ym:ym, name: name, number: number })})
+                .then(setModalState(false))
+                .then(alert('예약 내용이 저장되었습니다.'))
+                .then(
+                    fetch('/api/seat?ym=' + ym).then(r=>r.json())
+                    .then((result) => {
+                        result = result.map((a)=>{
+                            a._id = a._id.toString();
+                            return a
+                        })
+                        setSeatList(result);
+                        setItem([]);
+                        setInputs({name:'', number:''});
+                    })
+                )
+            } else {
+                alert('전화번호 양식을 다시 확인해주세요.')
+            }
+        }
+    }
 
     return(
         <div className={style.modalWrap} style={state ? {display:'flex'} : {display:'none'}}>
@@ -139,23 +173,7 @@ export default function SeatModal(){
                             }}
                         >삭제하기</Button>
                         <Button
-                            onClick={()=>{
-                                fetch('/api/seat', {method: 'POST', body: JSON.stringify({id:item, ym:ym, name: name, number: number })})
-                                .then(setModalState(false))
-                                .then(alert('예약 내용이 저장되었습니다.'))
-                                .then(
-                                    fetch('/api/seat?ym=' + ym).then(r=>r.json())
-                                    .then((result) => {
-                                        result = result.map((a)=>{
-                                            a._id = a._id.toString();
-                                            return a
-                                        })
-                                        setSeatList(result);
-                                        setItem([]);
-                                        setInputs({name:'', number:''});
-                                    })
-                                )
-                            }}
+                            onClick={reserve}
                         >저장하기</Button>
                     </div>
                 </div>
