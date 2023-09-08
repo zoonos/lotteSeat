@@ -49,10 +49,12 @@ export default function SeatModal(){
     useEffect(()=>{
         if (number.length === 11) {
             setInputs({
+                name : name,
                 number: number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
             });
           } else if (number.length === 13) {
             setInputs({
+                name: name,
                 number: number
               //하이픈이 입력되면 공백으로 변경되고 하이픈이 다시 생성됨
                 .replace(/-/g, '')
