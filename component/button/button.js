@@ -3,7 +3,7 @@
 import {signOut} from 'next-auth/react'
 import { useRouter } from "next/navigation";
 import styles from './button.module.css';
-import { nowYm, nowYmList, selectItem } from '@/store/atoms';
+import { loadState, nowYm, nowYmList, selectItem } from '@/store/atoms';
 import { useRecoilState } from 'recoil';
 import { getLastYm, getNextYm, getPrevYm} from '@/util/ym';
 import { modalState } from "@/store/atoms";
@@ -101,6 +101,7 @@ function NextBtn(){
 function MonthAddBtn(){
     const [ym, setYm] = useRecoilState(nowYm);
     const [ymList, setYmList] = useRecoilState(nowYmList);
+    const [load, setLoad] = useRecoilState(loadState);
 
     return(
         <Button
@@ -109,18 +110,14 @@ function MonthAddBtn(){
                     let lastYm = ymList[(ymList.length-1)];
                     let nextYm = getNextYm(lastYm);
 
-                    let confirmMsg = `
-                        다음 달을 추가하시겠습니까?
-                        현재 설정 된 마지막 달은 ${lastYm.split('-')[0]}년 ${lastYm.split('-')[1]}월 이고
-                        추가되는 달은 ${nextYm.split('-')[0]}년 ${nextYm.split('-')[1]}월 입니다.
-                        * 새롭게 추가되는 달은 이전 달의 설정을 그대로 가져옵니다.
-                        * 업데이트가 완료되었다는 알림을 반드시 기다려주세요.
-                    `
+                    let confirmMsg = `다음 달을 추가하시겠습니까?\n현재 설정 된 마지막 달은 ${lastYm.split('-')[0]}년 ${lastYm.split('-')[1]}월 이고\n추가되는 달은 ${nextYm.split('-')[0]}년 ${nextYm.split('-')[1]}월 입니다.\n* 새롭게 추가되는 달은 이전 달의 설정을 그대로 가져옵니다.\n* 업데이트가 완료되었다는 알림을 반드시 기다려주세요.`
                     if(confirm(confirmMsg)){
+                        setLoad(true);
                         fetch('/api/ymList', {method:'POST'})
                         .then(r=>r.json())
                         .then(() => {
-                            alert('업데이트가 완료되었습니다.')
+                            alert('업데이트가 완료되었습니다.');
+                            setLoad(false);
                             let tempArr = [...ymList];
                             tempArr.push(nextYm);
                             setYmList(tempArr);

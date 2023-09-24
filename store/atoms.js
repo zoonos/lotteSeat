@@ -34,6 +34,11 @@ export const modalState = atom({
     default:false
 })
 
+export const loadState = atom({
+    key:'loadState',
+    default: false
+})
+
 // 통계 팝업에서 사용될 변수
 export const statisName = atom({
     key:'statisName',

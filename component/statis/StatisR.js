@@ -1,7 +1,7 @@
 'use client'
 
 import {SearchInput} from "@/component/input/input";
-import { nowYm } from "@/store/atoms";
+import { loadState, nowYm } from "@/store/atoms";
 import { useEffect, useState } from "react"
 import { useRecoilState } from "recoil";
 import { statisName, statisNum, statisSeat, modalState, statisType } from "@/store/atoms";
@@ -11,13 +11,16 @@ export default function StatisL(){
     const [data, setData] = useState([]);
     const [viewData, setViewData] = useState([]);
     const [search, setSearch] = useState('');
+    const [laod, setLoad] = useRecoilState(loadState);
 
     useEffect(() => {
+        setLoad(true);
         fetch('/api/statis',{method:'POST', body: ym}).then(r=>r.json())
         .then((result) => {
             setData(result);
             setViewData(result);
             setSearch('');
+            setLoad(false);
         })
     },[ym])
 

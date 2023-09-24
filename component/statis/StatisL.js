@@ -1,6 +1,6 @@
 'use client'
 
-import { nowYm } from "@/store/atoms";
+import { loadState, nowYm } from "@/store/atoms";
 import { useEffect,useState } from "react";
 import { useRecoilState } from "recoil";
 
@@ -26,11 +26,14 @@ function SeatStatis(props){
 export default function StatisL(){
     const [data, setData] = useState();
     const [ym, setYm] = useRecoilState(nowYm);
+    const [load, setLoad] = useRecoilState(loadState);
 
     useEffect(()=>{
+        setLoad(true);
         fetch('/api/statis?ym=' + ym).then(r=>r.json())
         .then((result) => {
             setData(result);
+            setLoad(false);
         })
     },[ym])
 

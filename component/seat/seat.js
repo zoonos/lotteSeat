@@ -3,7 +3,7 @@
 import { useRecoilState } from 'recoil';
 import styles from './seat.module.css';
 import { useEffect, useState } from 'react';
-import { nowYm, selectItem, nowSeatList } from '@/store/atoms';
+import { nowYm, selectItem, nowSeatList, loadState } from '@/store/atoms';
 
 // let seatList;
 
@@ -116,9 +116,11 @@ export default function AllSeat(props){
 
     const [ym, setYm] = useRecoilState(nowYm);
     const [seatList, setSeatList] = useRecoilState(nowSeatList);
-    
+    const [load, setLoad] = useRecoilState(loadState);
+
     useEffect(()=>{
         console.log(ym)
+        setLoad(true);
         fetch('/api/seat?ym=' + ym).then(r=>r.json())
         .then((result) => {
             console.log(result)
@@ -127,6 +129,7 @@ export default function AllSeat(props){
                 return a
             })
             setSeatList(result);
+            setLoad(false);
         })
     },[ym])
 
